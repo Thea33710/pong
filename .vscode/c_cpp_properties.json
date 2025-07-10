@@ -1,0 +1,26 @@
+{
+  "configurations": [
+    {
+      "name": "Win32 (MSYS2-UCRT64)",
+      "includePath": [
+        "${workspaceFolder}",                               // Fichiers locaux (main.cpp, *.hpp, etc.)
+        "C:/msys64/ucrt64/include",                         // Includes généraux (C/C++)
+        "C:/msys64/ucrt64/include/SFML",                    // Headers SFML
+        "C:/msys64/ucrt64/include/c++",                     // Standard C++
+        "C:/msys64/ucrt64/include/c++/15.1.0",              // Version GCC installée (à adapter si version change)
+        "C:/msys64/ucrt64/include/c++/15.1.0/x86_64-w64-mingw32",
+        "C:/msys64/ucrt64/lib/gcc/x86_64-w64-mingw32/15.1.0/include"
+      ],
+      "defines": [
+        "_DEBUG",
+        "UNICODE"
+      ],
+      "compilerPath": "C:/msys64/ucrt64/bin/g++.exe",       // Compilateur utilisé
+      "cStandard": "c17",
+      "cppStandard": "c++20",
+      "intelliSenseMode": "windows-gcc-x64"
+    }
+  ],
+  "version": 4
+}
+

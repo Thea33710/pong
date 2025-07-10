@@ -1,25 +1,28 @@
-#pragma once
+#ifndef PONG_HPP
+#define PONG_HPP
+
 #include <SFML/Graphics.hpp>
 
 class Pong {
 public:
-    Pong(sf::Font& font, sf::Vector2u windowSize);
-    void reset(sf::Vector2u windowSize);
+   Pong(const sf::Font& font, sf::Vector2u size);
+
     void update(sf::RenderWindow& window);
     void draw(sf::RenderWindow& window);
+    void reset(sf::Vector2u windowSize);
+    bool joueurAGagne() const;
 
 private:
-    sf::RectangleShape leftPaddle;
-    sf::RectangleShape rightPaddle;
-    sf::CircleShape ball;
-    sf::Vector2f ballVelocity;
-
-    int scoreLeft;
-    int scoreRight;
+    sf::RectangleShape raquetteGauche;
+    sf::RectangleShape raquetteDroite;
+    sf::CircleShape balle;
 
     sf::Text scoreText;
-    int margin; // ← Ajouté ici
+    int scoreGauche = 0;
+    int scoreDroite = 0;
+    const int SCORE_MAX = 5;
 
-    void handleCollisions(sf::RenderWindow& window);
-    void handleControls(sf::Vector2u size);
+    sf::Vector2f balleVitesse;
 };
+
+#endif
