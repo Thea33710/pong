@@ -1,6 +1,6 @@
 #include "menu.hpp"
 
-Menu::Menu(sf::Font& font, float screenWidth, float screenHeight) {
+Menu::Menu(const sf::Font& font, float screenWidth, float screenHeight) {
     // Titre
     titre.setFont(font);
     titre.setString("MENU PRINCIPAL");

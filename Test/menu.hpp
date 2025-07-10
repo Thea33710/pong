@@ -7,7 +7,7 @@
 
 class Menu {
 public:
-   Menu(const sf::Font& font, unsigned int width);
+   Menu(const sf::Font& font, float screenWidth, float screenHeight);
     void draw(sf::RenderWindow& window);
     void handleClick(const sf::Vector2f& mousePos, GameState& state);
     void centerMenu(float screenWidth, float screenHeight);

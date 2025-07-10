@@ -49,7 +49,7 @@ void Pong::update(sf::RenderWindow& window) {
     }
 
     // Contrôles raquette gauche (W/S)
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
         raquetteGauche.move(0.f, -5.f);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
         raquetteGauche.move(0.f, 5.f);

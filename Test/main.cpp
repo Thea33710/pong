@@ -26,7 +26,7 @@ int main() {
 
     // --- 4. États du jeu ---
     GameState state = GameState::Menu;
-    Menu menu(font, window.getSize().x);
+   Menu menu(font, window.getSize().x, window.getSize().y);
     Pong pong(font, window.getSize());
 
     // Boucle principale
