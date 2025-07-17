@@ -10,7 +10,8 @@ public:
     Menu(const sf::Font& font, float screenWidth, float screenHeight);
     void draw(sf::RenderWindow& window);
     void update(const sf::Vector2f& mousePos);
-    void handleClick(const sf::Vector2f& mousePos, GameState& state);
+    void handleClick(const sf::Event& event, const sf::Vector2f& mousePos, GameState& state);
+
 
 private:
     sf::Text titre;

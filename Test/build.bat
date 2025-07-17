@@ -8,7 +8,7 @@ set COMPILER=C:\msys64\ucrt64\bin\g++.exe
 %COMPILER% main.cpp menu.cpp pong.cpp button.cpp ^
  -IC:/msys64/ucrt64/include ^
  -LC:/msys64/ucrt64/lib ^
- -lsfml-graphics -lsfml-window -lsfml-system ^
+ -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio ^
  -o mon_jeu.exe
 
 :: Vérifie si la compilation a réussi

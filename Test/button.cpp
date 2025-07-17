@@ -1,4 +1,5 @@
 #include "button.hpp"
+#include <iostream>
 
 Button::Button(const std::string& str, const sf::Font& font, unsigned int charSize, sf::Vector2f size)
     : idleColor(sf::Color::White), hoverColor(sf::Color::Cyan)
@@ -10,6 +11,13 @@ Button::Button(const std::string& str, const sf::Font& font, unsigned int charSi
     text.setString(str);
     text.setCharacterSize(charSize);
     text.setFillColor(sf::Color::Black);
+
+    // Chargement du son
+    if (!clickBuffer.loadFromFile("click.wav")) {
+        std::cerr << "Erreur : impossible de charger click.wav\n";
+    } else {
+        clickSound.setBuffer(clickBuffer);
+    }
 }
 
 void Button::setPosition(float x, float y) {
@@ -52,4 +60,18 @@ void Button::update(const sf::Vector2f& mousePos) {
 
 std::string Button::getText() const {
     return text.getString();
+}
+
+void Button::playClickSound() {
+    clickSound.play();
+}
+
+bool Button::handleClickEvent(const sf::Event& event, const sf::Vector2f& mousePos) {
+    if (event.type == sf::Event::MouseButtonPressed &&
+        event.mouseButton.button == sf::Mouse::Left &&
+        isHovered(mousePos)) {
+        playClickSound();
+        return true;
+    }
+    return false;
 }

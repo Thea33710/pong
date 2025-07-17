@@ -39,13 +39,12 @@ int main() {
 
             // Click sur le menu
             if (state == GameState::Menu && event.type == sf::Event::MouseButtonPressed) {
-                sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-                menu.handleClick(mousePos, state);
+            sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+            menu.handleClick(event, mousePos, state);
 
-                // Lancement du jeu → reset
-                if (state == GameState::Playing)
-                    pong.reset(window.getSize());
-            }
+            if (state == GameState::Playing)
+            pong.reset(window.getSize());
+}
 
             // Gestion échap
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) 

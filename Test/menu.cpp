@@ -43,9 +43,9 @@ void Menu::update(const sf::Vector2f& mousePos) {
         bouton.update(mousePos);
 }
 
-void Menu::handleClick(const sf::Vector2f& mousePos, GameState& state) {
+void Menu::handleClick(const sf::Event& event, const sf::Vector2f& mousePos, GameState& state) {
     for (auto& bouton : boutons) {
-        if (bouton.isClicked(mousePos)) {
+        if (bouton.handleClickEvent(event, mousePos)) {
             std::string text = bouton.getText();
 
             if (text == "Jouer") state = GameState::Playing;
@@ -54,3 +54,4 @@ void Menu::handleClick(const sf::Vector2f& mousePos, GameState& state) {
         }
     }
 }
+
