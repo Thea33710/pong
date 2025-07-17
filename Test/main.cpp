@@ -71,13 +71,6 @@ int main() {
         // Rendu
         window.clear(sf::Color::Black);
 
-        if (state == GameState::Menu)
-        {
-            sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
-            menu.update(mousePos); // ← mise à jour du survol
-            menu.draw(window);
-        }
-
         if (state == GameState::Menu) {
             sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
             menu.update(mousePos);  // ← Ajout important

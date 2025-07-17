@@ -35,7 +35,8 @@ void Button::draw(sf::RenderWindow& window) {
 }
 
 bool Button::isHovered(const sf::Vector2f& mousePos) const {
-    return shape.getGlobalBounds().contains(mousePos);
+    bool inside = shape.getGlobalBounds().contains(mousePos);
+    return inside;
 }
 
 bool Button::isClicked(const sf::Vector2f& mousePos) const {
@@ -63,6 +64,8 @@ std::string Button::getText() const {
 }
 
 void Button::playClickSound() {
+     std::cout << "click!" << std::endl;
+    clickSound.setVolume(100.f); 
     clickSound.play();
 }
 
