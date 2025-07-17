@@ -2,6 +2,7 @@
 #define PONG_HPP
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 class Pong {
 public:
@@ -24,6 +25,9 @@ private:
     const int SCORE_MAX = 5;
 
     sf::Vector2f balleVitesse;
+
+    sf::SoundBuffer bounceBuffer;
+    sf::Sound bounceSound;
 };
 
 #endif

@@ -3,7 +3,7 @@
 
 int main() {
     sf::SoundBuffer buffer;
-    if (!buffer.loadFromFile("click.wav")) {
+    if (!buffer.loadFromFile("bounce.wav")) {
         std::cerr << "Erreur chargement du son\n";
         return 1;
     }

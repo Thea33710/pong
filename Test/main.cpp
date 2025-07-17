@@ -4,6 +4,8 @@
 #include "menu.hpp"
 #include "pong.hpp"
 #include "gamestate.hpp"
+#include "gamesettings.hpp"
+#include "options.hpp"
 
 int main() {
         // --- 1. Récupération de la résolution de l'écran ---
@@ -12,8 +14,7 @@ int main() {
     unsigned int screenHeight = desktop.height;
 
     // --- 2. Création de la fenêtre sans bord, plein écran ---
-    sf::RenderWindow window(sf::VideoMode(screenWidth, screenHeight), "Plein écran",
-                            sf::Style::None);
+    sf::RenderWindow window(sf::VideoMode(screenWidth, screenHeight), "Plein écran", sf::Style::None);
     window.setPosition(sf::Vector2i(0, 0));
     window.setFramerateLimit(60);  // Pour éviter de faire tourner à 1000 FPS
 
@@ -24,10 +25,12 @@ int main() {
         return -1;
     }
 
-    // --- 4. États du jeu ---
+    // Initialisation des états et paramètres
     GameState state = GameState::Menu;
-   Menu menu(font, window.getSize().x, window.getSize().y);
+    GameSettings settings;  // Structure des paramètres du jeu
+    Menu menu(font, screenWidth, screenHeight);
     Pong pong(font, window.getSize());
+    OptionsMenu options(font, window.getSize(), settings);
 
     // Boucle principale
     while (window.isOpen()) {
@@ -44,7 +47,17 @@ int main() {
 
             if (state == GameState::Playing)
             pong.reset(window.getSize());
-}
+        }
+
+             // Click dans les options
+            if (state == GameState::Options && event.type == sf::Event::MouseButtonPressed) {
+                sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+                options.handleClick(event, mousePos);
+
+                if (options.wantsToReturn()) {
+                    state = GameState::Menu;
+                }
+            }
 
             // Gestion échap
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) 

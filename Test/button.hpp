@@ -1,6 +1,5 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 #include <string>
 
 class Button {
@@ -18,13 +17,10 @@ public:
     void update(const sf::Vector2f& mousePos);
 
     std::string getText() const;
-    void playClickSound();
 
 private:
     sf::RectangleShape shape;
     sf::Text text;
     sf::Color idleColor;
     sf::Color hoverColor;
-    sf::SoundBuffer clickBuffer;
-    sf::Sound clickSound;
 };

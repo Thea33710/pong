@@ -1,4 +1,5 @@
 #include "menu.hpp"
+#include <iostream>
 
 Menu::Menu(const sf::Font& font, float screenWidth, float screenHeight) {
     titre.setFont(font);
@@ -14,6 +15,13 @@ Menu::Menu(const sf::Font& font, float screenWidth, float screenHeight) {
     }
 
     centerMenu(screenWidth, screenHeight);
+
+    // Chargement du son
+    if (!clickBuffer.loadFromFile("click.wav")) {
+        std::cerr << "Erreur : impossible de charger click.wav\n";
+    } else {
+        clickSound.setBuffer(clickBuffer);
+    }
 }
 
 void Menu::centerMenu(float screenWidth, float screenHeight) {
@@ -47,6 +55,9 @@ void Menu::handleClick(const sf::Event& event, const sf::Vector2f& mousePos, Gam
     for (auto& bouton : boutons) {
         if (bouton.handleClickEvent(event, mousePos)) {
             std::string text = bouton.getText();
+
+            clickSound.setVolume(100.f); 
+            clickSound.play();
 
             if (text == "Jouer") state = GameState::Playing;
             else if (text == "Options") state = GameState::Options;

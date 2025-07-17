@@ -1,7 +1,16 @@
 #include "pong.hpp"
 #include <sstream>
+#include <iostream>
 
 Pong::Pong(const sf::Font& font, sf::Vector2u windowSize) {
+
+    if (!bounceBuffer.loadFromFile("bounce.wav")) {
+    std::cerr << "Erreur : impossible de charger bounce.wav\n";
+} else {
+    bounceSound.setBuffer(bounceBuffer);
+    bounceSound.setVolume(100.f);  // Optionnel : volume entre 0 et 100
+}
+
     // Raquettes
     raquetteGauche.setSize({ 10.f, 100.f });
     raquetteGauche.setFillColor(sf::Color::White);
@@ -38,6 +47,7 @@ void Pong::update(sf::RenderWindow& window) {
     if (balle.getGlobalBounds().intersects(raquetteGauche.getGlobalBounds()) ||
         balle.getGlobalBounds().intersects(raquetteDroite.getGlobalBounds())) {
         balleVitesse.x *= -1;
+        bounceSound.play();
     }
 
     // Marquer un point

@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <vector>
 #include <string>
 #include "button.hpp"
@@ -17,4 +18,7 @@ private:
     sf::Text titre;
     std::vector<Button> boutons;
     void centerMenu(float screenWidth, float screenHeight);
+
+    sf::SoundBuffer clickBuffer;
+    sf::Sound clickSound;
 };
