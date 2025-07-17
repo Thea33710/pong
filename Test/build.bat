@@ -5,7 +5,7 @@ echo 🔧 Compilation du projet Pong avec menu...
 set COMPILER=C:\msys64\ucrt64\bin\g++.exe
 
 :: Compilation
-%COMPILER% main.cpp menu.cpp pong.cpp ^
+%COMPILER% main.cpp menu.cpp pong.cpp button.cpp ^
  -IC:/msys64/ucrt64/include ^
  -LC:/msys64/ucrt64/lib ^
  -lsfml-graphics -lsfml-window -lsfml-system ^

@@ -19,10 +19,11 @@ Pong::Pong(const sf::Font& font, sf::Vector2u windowSize) {
     balleVitesse = { -5.f, -5.f };
 
     // Score
+    scoreGauche = 0;
+    scoreDroite = 0;
     scoreText.setFont(font);
     scoreText.setCharacterSize(36);
     scoreText.setFillColor(sf::Color::White);
-    scoreText.setPosition(windowSize.x / 2.f - 50.f, 20.f);
 }
 
 void Pong::update(sf::RenderWindow& window) {
@@ -48,11 +49,17 @@ void Pong::update(sf::RenderWindow& window) {
         balle.setPosition(window.getSize().x / 2.f, window.getSize().y / 2.f);
     }
 
-    // Contrôles raquette gauche (W/S)
+    // Contrôles raquette gauche (Z/S)
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
         raquetteGauche.move(0.f, -5.f);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
         raquetteGauche.move(0.f, 5.f);
+
+     // Limiter raquette gauche dans la fenêtre
+    if (raquetteGauche.getPosition().y < 0)
+        raquetteGauche.setPosition(raquetteGauche.getPosition().x, 0);
+    if (raquetteGauche.getPosition().y + raquetteGauche.getSize().y > window.getSize().y)
+        raquetteGauche.setPosition(raquetteGauche.getPosition().x, window.getSize().y - raquetteGauche.getSize().y);
 
     // Contrôles raquette droite (↑/↓)
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -60,13 +67,25 @@ void Pong::update(sf::RenderWindow& window) {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
         raquetteDroite.move(0.f, 5.f);
 
+     // Limiter raquette droite dans la fenêtre
+    if (raquetteDroite.getPosition().y < 0)
+        raquetteDroite.setPosition(raquetteDroite.getPosition().x, 0);
+    if (raquetteDroite.getPosition().y + raquetteDroite.getSize().y > window.getSize().y)
+        raquetteDroite.setPosition(raquetteDroite.getPosition().x, window.getSize().y - raquetteDroite.getSize().y);
+
     // Mise à jour du texte
     std::ostringstream ss;
     ss << scoreGauche << " : " << scoreDroite;
     scoreText.setString(ss.str());
+
+    // Recentrage horizontal du score en haut
+    sf::FloatRect bounds = scoreText.getLocalBounds();
+    scoreText.setOrigin(bounds.left + bounds.width / 2.f, bounds.top + bounds.height / 2.f);
+    scoreText.setPosition(window.getSize().x / 2.f, 20.f + bounds.height / 2.f);
 }
 
 void Pong::draw(sf::RenderWindow& window) {
+    drawDashedLine(window);
     window.draw(raquetteGauche);
     window.draw(raquetteDroite);
     window.draw(balle);
@@ -85,4 +104,24 @@ void Pong::reset(sf::Vector2u windowSize) {
 
 bool Pong::joueurAGagne() const {
     return scoreGauche >= SCORE_MAX || scoreDroite >= SCORE_MAX;
+}
+
+void Pong::drawDashedLine(sf::RenderWindow& window) {
+    float dashHeight = 10.f;
+    float gap = 10.f;
+    float centerX = window.getSize().x / 2.f;
+
+    // On calcule la hauteur du score (plus marge)
+    float scoreHeight = scoreText.getLocalBounds().height + 40.f; // 40 px de marge sous le score
+
+    sf::RectangleShape dash(sf::Vector2f(2.f, dashHeight));
+    dash.setFillColor(sf::Color::White);
+
+    for (float y = 0; y < window.getSize().y; y += dashHeight + gap) {
+        // On saute les dash dans la zone du score
+        if (y > scoreHeight) {
+            dash.setPosition(centerX, y);
+            window.draw(dash);
+        }
+    }
 }

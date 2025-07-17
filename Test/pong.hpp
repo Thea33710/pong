@@ -11,6 +11,7 @@ public:
     void draw(sf::RenderWindow& window);
     void reset(sf::Vector2u windowSize);
     bool joueurAGagne() const;
+    void drawDashedLine(sf::RenderWindow& window);
 
 private:
     sf::RectangleShape raquetteGauche;

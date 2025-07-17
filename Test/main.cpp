@@ -47,11 +47,15 @@ int main() {
                     pong.reset(window.getSize());
             }
 
-            // Échap pendant le jeu → retour au menu
-            if (state == GameState::Playing &&
-                event.type == sf::Event::KeyPressed &&
-                event.key.code == sf::Keyboard::Escape) {
-                state = GameState::Menu;
+            // Gestion échap
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) 
+            {
+                if (state == GameState::Playing)
+                    state = GameState::Menu;
+                else if (state == GameState::Options)
+                    state = GameState::Menu; // ← Retour au menu depuis options
+                else if (state == GameState::Menu)
+                    state = GameState::Exit;
             }
         }
 
@@ -68,9 +72,19 @@ int main() {
         // Rendu
         window.clear(sf::Color::Black);
 
-        if (state == GameState::Menu) {
+        if (state == GameState::Menu)
+        {
+            sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+            menu.update(mousePos); // ← mise à jour du survol
             menu.draw(window);
-        } else if (state == GameState::Playing) {
+        }
+
+        if (state == GameState::Menu) {
+            sf::Vector2f mousePos = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+            menu.update(mousePos);  // ← Ajout important
+            menu.draw(window);
+        } else if (state == GameState::Playing) 
+        {
             pong.update(window);
             pong.draw(window);
         }

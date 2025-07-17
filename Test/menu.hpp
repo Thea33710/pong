@@ -1,20 +1,19 @@
-#ifndef MENU_HPP
-#define MENU_HPP
-
+#pragma once
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include "gamestate.hpp"  // Si tu as défini GameState ailleurs
+#include <string>
+#include "button.hpp"
+#include "gamestate.hpp"
 
 class Menu {
 public:
-   Menu(const sf::Font& font, float screenWidth, float screenHeight);
+    Menu(const sf::Font& font, float screenWidth, float screenHeight);
     void draw(sf::RenderWindow& window);
+    void update(const sf::Vector2f& mousePos);
     void handleClick(const sf::Vector2f& mousePos, GameState& state);
-    void centerMenu(float screenWidth, float screenHeight);
 
 private:
     sf::Text titre;
-    std::vector<sf::Text> boutons;
+    std::vector<Button> boutons;
+    void centerMenu(float screenWidth, float screenHeight);
 };
-
-#endif
