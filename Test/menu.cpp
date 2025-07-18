@@ -65,4 +65,3 @@ void Menu::handleClick(const sf::Event& event, const sf::Vector2f& mousePos, Gam
         }
     }
 }
-
